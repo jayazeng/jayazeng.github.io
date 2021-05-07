@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Include links to CSS stylesheets below -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.5/css/bulma.min.css" />
+    <link href="~bulma-carousel/dist/css/bulma-carousel.min.css" rel="stylesheet">
+
+
+    <title>Final</title>
+</head>
+
+<body>
+    <section class="section hero is-info">
+
+        <div class="hero-body">
+            <nav class="navbar" role="navigation" aria-label="main navigation">
+                <div class="navbar-brand">
+                    <a class="navbar-item" href="index.html">
+                        <span class="icon is-large">
+                            <i class="fas fa-home fa-2x"></i>
+                        </span>
+                    </a>
+                    <h1 class="title is-1">Have some stress relief!</h1>
+                </div>
+
+                <div class="navbar-end">
+                    <a class="navbar-item" href="index.html">
+                        <span class="icon-text">
+                            <span class="icon">
+                                <i class="fa fa-redo"></i>
+                            </span>
+                            <span class="subtitle">
+                                Reset
+                            </span>
+                        </span>
+                    </a>
+                    <div class="navbar-item">
+                        <form action="https://www.paypal.com/donate" method="post" target="_blank">
+                            <input type="hidden" name="business" value="jaze2017@gmail.com" />
+                            <input type="hidden" name="currency_code" value="USD" />
+                            <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donate_LG.gif"
+                                name="submit" title="PayPal - The safer, easier way to pay online!"
+                                alt="Donate with PayPal button" />
+                            <img alt="" src="https://www.paypal.com/en_US/i/scr/pixel.gif" width="1" height="1" />
+                        </form>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </section>
+    <section class=section>
+        <div class="container has-text-centered">
+            <div class="columns">
+                <div class="column is-one-fifth">
+                    <h1 class="title">Here's a fun fact about cats!</h1>
+                    <p id="catQuote">Cats are believed to be the only mammals who don't taste sweetness.</p>
+
+                    <br>
+                    <button class="button is-info is-large" id="newCat" onclick="newCat()">More Cat</button>
+                </div>
+                <div class="column">
+                    <div id="catPic">
+                        <img src="funny-cat.jpg">
+                    </div>
+                </div>
+            </div>
+            <br>
+
+        </div>
+    </section>
+
+    <!-- Include links to JavaScript files below -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+    <script>
+        function newCat() {
+            fetch('https://api.thecatapi.com/v1/images/search').then(response => response.json())
+                .then((data) => {
+                    let catUrl = data[0].url
+                    document.getElementById('catPic').innerHTML = `<img style='height: 80vh; width: auto;' src=${catUrl}>`;
+                });
+
+            fetch('https://cat-fact.herokuapp.com/facts/random?animal_type=cat&amount=1').then(response => response.text())
+                .then((data) => {
+                    let catFact = JSON.parse(data).text
+                    document.getElementById('catQuote').innerText = catFact;
+                });
+        }
+    </script>
+</body>
+
+</html>
